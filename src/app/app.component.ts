@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,9 @@ export class AppComponent implements OnInit{
   //tituto de la pagina pricipal
   title = 'Formulario Usuario';
 
-  constructor() {
+  constructor(
+    private router: Router,
+  ) {
     this.cities = [
       {name: 'Bogota', code: 'NY'},
       {name: 'Medellin', code: 'RM'},
@@ -49,6 +52,7 @@ export class AppComponent implements OnInit{
       "selectedCities":this.selectedCities.name,
       "selectedCountry":this.selectedCountry.name,
     }
-
+    this.router.navigate(['paginaperfil/perfil']);
+    localStorage.setItem('data', JSON.stringify(data))
   }
 }
