@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [MessageService, ConfirmationService]
 })
 export class AppComponent implements OnInit{
   //declaracion de variable 
@@ -26,6 +28,7 @@ export class AppComponent implements OnInit{
 
   constructor(
     private router: Router,
+    private messageService: MessageService,
   ) {
     this.cities = [
       {name: 'Bogota', code: 'NY'},
@@ -54,5 +57,18 @@ export class AppComponent implements OnInit{
     }
     this.router.navigate(['paginaperfil/perfil']);
     localStorage.setItem('data', JSON.stringify(data))
+
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'Agregar sellos',
+      detail: 'Información '+ data
+    });
+    alert('nombre:'+this.nombreUsuario+"    "+
+    'apellidos:'+this.apellidoUsuario+"    "+
+    'email:'+this.emailUsuario+"    "+
+    'telefono:'+this.telefonoUsuario+"    "+
+    'ciudad:'+this.selectedCities.name+"    "+
+    'pais:'+this.selectedCountry.name
+    );
   }
 }
