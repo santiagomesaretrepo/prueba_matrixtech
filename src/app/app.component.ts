@@ -21,7 +21,7 @@ export class AppComponent implements OnInit{
   selectedCountry: any;
 
   //tituto de la pagina pricipal
-  title = 'Prueba';
+  title = 'Formulario Usuario';
 
   constructor() {
     this.cities = [
@@ -39,5 +39,16 @@ export class AppComponent implements OnInit{
   //fecha actual para colocar en el Footer
   ngOnInit(): void {
     this.todayWithPipe = this.pipe.transform(Date.now(), 'dd/MM/yyyy');
+  }
+  enviar(){
+    let data={
+      "nombreUsuario":this.nombreUsuario,
+      "apellidoUsuario":this.apellidoUsuario,
+      "emailUsuario":this.emailUsuario,
+      "telefonoUsuario":this.telefonoUsuario,
+      "selectedCities":this.selectedCities.name,
+      "selectedCountry":this.selectedCountry.name,
+    }
+
   }
 }

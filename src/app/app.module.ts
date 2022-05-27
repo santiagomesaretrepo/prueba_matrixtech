@@ -12,11 +12,13 @@ import {CheckboxModule} from 'primeng/checkbox';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {RippleModule} from 'primeng/ripple';
 import {DropdownModule} from 'primeng/dropdown';
+import { PaginaperfilComponent } from './paginaperfil/paginaperfil.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PaginaperfilComponent
   ],
   imports: [
     BrowserModule,
