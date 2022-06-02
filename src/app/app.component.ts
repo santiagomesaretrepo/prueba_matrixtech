@@ -1,3 +1,5 @@
+//linea para imporatel servicio para guardar 
+import { GuardarUsuariosService } from './guardar-usuarios.service';
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
@@ -14,6 +16,7 @@ export class AppComponent implements OnInit{
   today: Date = new Date();
   pipe = new DatePipe('en-US');
   todayWithPipe :any;
+  cedulaUsuario:any;
   nombreUsuario:any;
   apellidoUsuario:any;
   emailUsuario:any;
@@ -27,10 +30,14 @@ export class AppComponent implements OnInit{
   title = 'Formulario Usuario';
 
   constructor(
+    private guardarUsuariosService:GuardarUsuariosService,
     private router: Router,
     private messageService: MessageService,
   ) {
-    this.cities = [
+
+
+  //select para cidudades y paises  
+  this.cities = [
       {name: 'Bogota', code: 'NY'},
       {name: 'Medellin', code: 'RM'},
       {name: 'Bucaramanga', code: 'LDN'},
@@ -47,7 +54,8 @@ export class AppComponent implements OnInit{
     this.todayWithPipe = this.pipe.transform(Date.now(), 'dd/MM/yyyy');
   }
   enviar(){
-    let data={
+    const data={
+      "cedulaUsuario":this.cedulaUsuario,
       "nombreUsuario":this.nombreUsuario,
       "apellidoUsuario":this.apellidoUsuario,
       "emailUsuario":this.emailUsuario,
@@ -55,20 +63,13 @@ export class AppComponent implements OnInit{
       "selectedCities":this.selectedCities.name,
       "selectedCountry":this.selectedCountry.name,
     }
-    this.router.navigate(['paginaperfil/perfil']);
-    localStorage.setItem('data', JSON.stringify(data))
-
-    this.messageService.add({
-      severity: 'warn',
-      summary: 'Agregar sellos',
-      detail: 'Información '+ data
-    });
-    alert('nombre:'+this.nombreUsuario+"    "+
-    'apellidos:'+this.apellidoUsuario+"    "+
-    'email:'+this.emailUsuario+"    "+
-    'telefono:'+this.telefonoUsuario+"    "+
-    'ciudad:'+this.selectedCities.name+"    "+
-    'pais:'+this.selectedCountry.name
-    );
+    this.guardarUsuariosService.add(data).subscribe((resp: any) => {
+      console.log(resp);
+    }) 
   }
+  //cambiar de pagina para consultar el usuario
+  cambiarpagina(){
+    console.log('hoa');
+  }
+
 }

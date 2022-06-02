@@ -13,6 +13,8 @@ import {RadioButtonModule} from 'primeng/radiobutton';
 import {RippleModule} from 'primeng/ripple';
 import {DropdownModule} from 'primeng/dropdown';
 import { PaginaperfilComponent } from './paginaperfil/paginaperfil.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 @NgModule({
@@ -31,7 +33,8 @@ import { PaginaperfilComponent } from './paginaperfil/paginaperfil.component';
 		RadioButtonModule,
     RippleModule,
     FormsModule,
-    DropdownModule
+    DropdownModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
