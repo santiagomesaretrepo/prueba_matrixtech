@@ -1,9 +1,10 @@
-//linea para imporatel servicio para guardar 
-import { GuardarUsuariosService } from './guardar-usuarios.service';
+
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
+//linea para imporatel servicio para guardar 
+import { GuardarUsuariosService } from './guardar-usuarios.service';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 })
 export class AppComponent implements OnInit{
   //declaracion de variable 
+  usuarioDialog: boolean=false;
   today: Date = new Date();
   pipe = new DatePipe('en-US');
   todayWithPipe :any;
@@ -25,7 +27,10 @@ export class AppComponent implements OnInit{
   selectedCities: any;
   country:any[];
   selectedCountry: any;
-
+  mensajeModal:any;
+  usuarios: any[]=[];
+  usuario: any;
+  selectedUsuario: any[]=[];
   //tituto de la pagina pricipal
   title = 'Formulario Usuario';
 
@@ -63,13 +68,25 @@ export class AppComponent implements OnInit{
       "selectedCities":this.selectedCities.name,
       "selectedCountry":this.selectedCountry.name,
     }
+    //api para ingresar un nuevo usuario
     this.guardarUsuariosService.add(data).subscribe((resp: any) => {
-      console.log(resp);
-    }) 
+      this.messageService.add({ severity: 'success', summary: 'Se Agrego un Nuevo Usuario ', detail: 'Ya puedes consultarlo '});
+    })  
   }
   //cambiar de pagina para consultar el usuario
-  cambiarpagina(){
-    console.log('hoa');
+  consultarUsuario(){
+    //abrir el modal
+    this.usuarioDialog = true;
+    this.mensajeModal='Consultar el Usuario';
+    //api poder observar los usuarios registraods
+    this.guardarUsuariosService.getuser().subscribe((resp: any) => {
+      this.usuarios=resp;
+    })
   }
+  hideDialog(){
+     //cerrar el modal el modal
+    this.usuarioDialog = false;
+  }
+
 
 }

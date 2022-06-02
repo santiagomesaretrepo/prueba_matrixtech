@@ -1,5 +1,4 @@
-
-
+<p-toast position="top-center"></p-toast>
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
   <img
@@ -99,7 +98,7 @@
   <h2>Menu</h2>
   <input type="hidden" #selection>
   <div class="card-container">
-    <button class="card card-small" (click)="cambiarpagina()" tabindex="0">
+    <button class="card card-small"  (click)="consultarUsuario()" tabindex="0">
       <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
       <span>Consultar Usuario</span>
     </button>
@@ -109,4 +108,60 @@
       Registrar el Usuario {{todayWithPipe}}
   </footer>
 </div>
-<router-outlet></router-outlet>
+<!--Modal para consultar usuarios-->
+<p-dialog [(visible)]="usuarioDialog" [style]="{width: '50vw'}" [contentStyle]="{minHeight: '70vh'}"
+  header={{mensajeModal}} [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+      <p-table #dt [value]="usuarios" [rows]="10" [paginator]="true" responsiveLayout="scroll" [(selection)]="selectedUsuario"
+      [rowHover]="true" dataKey="id" [globalFilterFields]="['id','name','surnames']"
+      currentPageReportTemplate="Pagína {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true">
+      <ng-template pTemplate="caption">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          <h3 class="p-m-0">Maestro de usuarios</h3>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="dt.filterGlobal($event.target, 'contains')"
+              placeholder="Buscar por usuario" />
+          </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="id">Cedula<p-sortIcon field="id"></p-sortIcon>
+          </th>
+          <th pSortableColumn="name">Nombres<p-sortIcon field="name"></p-sortIcon>
+          </th>
+          <th pSortableColumn="surnames">Apellidos<p-sortIcon field="surnames"></p-sortIcon>
+          </th>
+          <th pSortableColumn="email">Correo<p-sortIcon field="email"></p-sortIcon>
+          </th>
+          <th pSortableColumn="phone">Telefono<p-sortIcon field="phone"></p-sortIcon>
+          </th>
+          <th pSortableColumn="city">Ciudad<p-sortIcon field="city"></p-sortIcon>
+          </th>
+          <th pSortableColumn="country">País<p-sortIcon field="country"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-usuario>
+        <tr>
+          <td>{{usuario.id}}</td>
+          <td>{{usuario.name}}</td>
+          <td>{{usuario.surnames}}</td>
+          <td>{{usuario.email}}</td>
+          <td>{{usuario.phone}}</td>
+          <td>{{usuario.city}}</td>
+          <td>{{usuario.country}}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          Total usuarios: {{usuarios ? usuarios.length : 0 }} usuarios.
+        </div>
+      </ng-template>
+    </p-table>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cerrar" icon="pi pi-times"  (click)="hideDialog()"></button>
+  </ng-template>
+</p-dialog>

@@ -14,6 +14,15 @@ import {RippleModule} from 'primeng/ripple';
 import {DropdownModule} from 'primeng/dropdown';
 import { PaginaperfilComponent } from './paginaperfil/paginaperfil.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ToastModule } from 'primeng/toast';
+import {PaginatorModule} from 'primeng/paginator';
+import { TableModule } from 'primeng/table';
+
 
 
 
@@ -35,6 +44,15 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     DropdownModule,
     HttpClientModule,
+    DialogModule,
+    MessagesModule,
+    MessageModule,
+    ConfirmDialogModule,
+    ConfirmPopupModule,
+    ToastModule,
+    PaginatorModule,
+    TableModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
